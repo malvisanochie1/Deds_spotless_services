@@ -645,7 +645,7 @@ Please contact me to discuss the service details and scheduling. Thank you!`;
     phoneInputs.forEach(function (phoneInput) {
       var cleave = new Cleave(phoneInput, {
         delimiters: ["(", ")", "-", "-"],
-        blocks: [3, 3, 3, 2, 2],
+        blocks: [4, 3, 3, 2, 2],
         prefix: "+234",
         numericOnly: true,
         noImmediatePrefix: true,
