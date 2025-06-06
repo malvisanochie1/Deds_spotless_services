@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zxx">
-  <!-- Mirrored from miller.bslthemes.com/Deds Spotless Services-demo/home-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 23 May 2025 21:53:03 GMT -->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -370,133 +369,111 @@
                             the form
                           </h3>
                         </div>
-                        <form>
+
+
+
+                        <form id="whatsappForm">
                           <div class="row">
                             <div class="col-6 mil-mb-15">
                               <div class="mil-input-frame">
                                 <input
-                                  type="text"
-                                  id="user-name"
-                                  name="user-name"
-                                  placeholder="Name"
-                                  class="mil-br-md mil-bg-m-1 mil-m-3"
-                                  autocomplete="name"
+                                        type="text"
+                                        id="user-name"
+                                        name="user-name"
+                                        placeholder="Name"
+                                        class="mil-br-md mil-bg-m-1 mil-m-3"
+                                        autocomplete="name"
+                                        required
                                 />
                                 <i class="far fa-user mil-a-1"></i>
                               </div>
+                              <div class="error-message" id="name-error">Please enter your name</div>
                             </div>
                             <div class="col-6 mil-mb-15">
                               <div class="mil-input-frame">
                                 <input
-                                  type="email"
-                                  id="user-email"
-                                  name="user-email"
-                                  placeholder="Email"
-                                  class="mil-br-md mil-bg-m-1 mil-m-3"
-                                  autocomplete="email"
+                                        type="email"
+                                        id="user-email"
+                                        name="user-email"
+                                        placeholder="Email"
+                                        class="mil-br-md mil-bg-m-1 mil-m-3"
+                                        autocomplete="email"
+                                        required
                                 />
                                 <i class="far fa-at mil-a-1"></i>
                               </div>
+                              <div class="error-message" id="email-error">Please enter a valid email</div>
                             </div>
                             <div class="col-md-6 mil-mb-15">
                               <div class="mil-input-frame">
                                 <input
-                                  type="tel"
-                                  id="user-phone"
-                                  name="user-tel"
-                                  class="mil-phone-input mil-br-md mil-bg-m-1 mil-m-3"
-                                  placeholder="+234 (___) ___-__-__"
-                                  autocomplete="tel"
+                                        type="tel"
+                                        id="user-phone"
+                                        name="user-tel"
+                                        class="mil-phone-input mil-br-md mil-bg-m-1 mil-m-3"
+                                        placeholder="+234 (___) ___-__-__"
+                                        autocomplete="tel"
+                                        required
                                 />
                                 <i class="far fa-mobile mil-a-1"></i>
                               </div>
+                              <div class="error-message" id="phone-error">Please enter your phone number</div>
                             </div>
                             <div class="col-md-6 mil-mb-15">
                               <div class="mil-input-frame mil-custom-select">
-                                <div
-                                  class="mil-select-button mil-br-md mil-bg-m-1 mil-m-3"
-                                >
-                                  <span class="mil-selected-value"
-                                    >Services</span
-                                  >
+                                <div class="mil-select-button mil-br-md mil-bg-m-1 mil-m-3" id="serviceSelect">
+                                  <span class="mil-selected-value">Services</span>
                                 </div>
-                                <ul class="mil-select-dropdown mil-br-md">
+                                <ul class="mil-select-dropdown mil-br-md" id="serviceDropdown">
                                   <li>
-                                    <input
-                                      type="radio"
-                                      id="option1"
-                                      name="select"
-                                      value="Apartment cleaning"
-                                    /><label for="option1"
-                                      >Apartment cleaning</label
-                                    >
+                                    <input type="radio" id="option1" name="select" value="Apartment cleaning" />
+                                    <label for="option1">Apartment cleaning</label>
                                   </li>
                                   <li>
-                                    <input
-                                      type="radio"
-                                      id="option2"
-                                      name="select"
-                                      value="Home cleaning"
-                                    /><label for="option2">Home cleaning</label>
+                                    <input type="radio" id="option2" name="select" value="Home cleaning" />
+                                    <label for="option2">Home cleaning</label>
                                   </li>
                                   <li>
-                                    <input
-                                      type="radio"
-                                      id="option3"
-                                      name="select"
-                                      value="Office cleaning"
-                                    /><label for="option3"
-                                      >Office cleaning</label
-                                    >
+                                    <input type="radio" id="option3" name="select" value="Office cleaning" />
+                                    <label for="option3">Office cleaning</label>
                                   </li>
                                   <li>
-                                    <input
-                                      type="radio"
-                                      id="option5"
-                                      name="select"
-                                      value="Window cleaning"
-                                    />
+                                    <input type="radio" id="option5" name="select" value="Window cleaning" />
                                     <label for="option5">Window cleaning</label>
                                   </li>
                                   <li>
-                                    <input
-                                      type="radio"
-                                      id="option6"
-                                      name="select"
-                                      value="Dry cleaning"
-                                    />
+                                    <input type="radio" id="option6" name="select" value="Dry cleaning" />
                                     <label for="option6">Dry cleaning</label>
                                   </li>
                                 </ul>
                                 <i class="far fa-chevron-down mil-a-1"></i>
                               </div>
+                              <div class="error-message" id="service-error">Please select a service</div>
                             </div>
                             <div class="col-lg-12 mil-mb-30">
                               <div class="mil-input-frame mil-type-2">
-                                <textarea
-                                  id="message"
-                                  name="message"
-                                  placeholder="Enter your message"
-                                  class="mil-br-md mil-bg-m-1 mil-m-3"
-                                  autocomplete="off"
-                                ></textarea>
+                        <textarea
+                                id="message"
+                                name="message"
+                                placeholder="Enter your message"
+                                class="mil-br-md mil-bg-m-1 mil-m-3"
+                                autocomplete="off"
+                        ></textarea>
                                 <i class="far fa-comment-alt mil-a-1"></i>
                               </div>
                             </div>
                             <div class="col-lg-12 mil-aic">
                               <p class="mil-fs-14 mil-m-2">
-                                By clicking the send button, you agree to the
-                                rules for processing personal data
+                                By clicking the send button, you agree to the rules for processing personal data
                               </p>
-                              <button
-                                class="mil-btn mil-bg-a-1 mil-br-xl mil-hover-bri-105 mil-hover-scale mil-ml-60"
-                                type="submit"
-                              >
-                                Send requests
+                              <button class="mil-btn mil-bg-a-1 mil-br-xl mil-hover-bri-105 mil-hover-scale mil-ml-60" type="submit">
+                                Send to WhatsApp
                               </button>
                             </div>
                           </div>
                         </form>
+
+
                       </div>
                     </div>
                   </div>
