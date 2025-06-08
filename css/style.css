@@ -5885,3 +5885,6 @@ pagination
 .bg-black{
   background-color: #babcbe !important;
 }
+.mt-5{
+  margin-top: 10px;
+}
