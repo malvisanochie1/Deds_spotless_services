@@ -9,16 +9,169 @@ p.s. I am available for Freelance hire (UI design, web development). email: mill
 
 ------------------------------------------- */
 
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
+
   "use strict";
+
+
+  const WHATSAPP_NUMBER = "+2348131652852";
+
+  // Custom Select Functionality
+  const selectButton = document.getElementById('serviceSelect');
+  const dropdown = document.getElementById('serviceDropdown');
+  const selectedValueSpan = selectButton.querySelector('.mil-selected-value');
+  const radioButtons = dropdown.querySelectorAll('input[type="radio"]');
+
+  // Toggle dropdown
+  selectButton.addEventListener('click', function() {
+    dropdown.classList.toggle('show');
+    selectButton.classList.toggle('active');
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!selectButton.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.classList.remove('show');
+      selectButton.classList.remove('active');
+    }
+  });
+
+  // Handle option selection
+  radioButtons.forEach(radio => {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+        selectedValueSpan.textContent = this.value;
+        dropdown.classList.remove('show');
+        selectButton.classList.remove('active');
+        document.getElementById('service-error').style.display = 'none';
+      }
+    });
+  });
+
+  // Phone number formatting
+  document.getElementById('user-phone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+
+    if (value.startsWith('234')) {
+      value = value.substring(3);
+    }
+
+    if (value.length >= 10) {
+      const formatted = `+234 (${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6, 8)}-${value.substring(8, 10)}`;
+      e.target.value = formatted;
+    }
+  });
+
+  // Form submission handler
+  document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Get form values
+    const name = document.getElementById('user-name').value.trim();
+    const email = document.getElementById('user-email').value.trim();
+    const phone = document.getElementById('user-phone').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    // Get selected service
+    const selectedService = document.querySelector('input[name="select"]:checked');
+    const service = selectedService ? selectedService.value : '';
+
+    // Reset error messages
+    document.querySelectorAll('.error-message').forEach(error => {
+      error.style.display = 'none';
+    });
+
+    // Validate form
+    let isValid = true;
+
+    if (!name) {
+      document.getElementById('name-error').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!email || !isValidEmail(email)) {
+      document.getElementById('email-error').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!phone) {
+      document.getElementById('phone-error').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!service) {
+      document.getElementById('service-error').style.display = 'block';
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return;
+    }
+
+    // Create WhatsApp message
+    const whatsappMessage = `🏠 *New Service Request*
+
+👤 *Customer Details:*
+• Name: ${name}
+• Email: ${email}
+• Phone: ${phone}
+
+🛠️ *Service Requested:*
+• ${service}
+
+💬 *Message:*
+${message || 'No additional message provided'}
+
+---
+Please contact me to discuss the service details and scheduling. Thank you!`;
+
+    // Create WhatsApp URL
+    const whatsappURL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
+
+    // Show success message
+    showSuccessMessage();
+
+    // Optional: Reset form after successful submission
+    // this.reset();
+    // selectedValueSpan.textContent = 'Services';
+  });
+
+  // Email validation function
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  // Success message function
+  function showSuccessMessage() {
+    const button = document.querySelector('.mil-btn');
+    const originalText = button.innerHTML;
+
+    button.innerHTML = '<i class="fas fa-check"></i> Sent to WhatsApp!';
+    button.style.background = '#28a745';
+
+    setTimeout(() => {
+      button.innerHTML = originalText;
+      button.style.background = 'linear-gradient(135deg, #25d366, #128c7e)';
+    }, 3000);
+  }
+
+
+
 
   // Register GSAP plugins
   gsap.registerPlugin(ScrollTrigger);
 
   /* -------------------------------------------
-    
+
     preloader
-    
+
     ------------------------------------------- */
 
   const initPreloader = () => {
@@ -46,9 +199,9 @@ document.addEventListener("DOMContentLoaded", function () {
   // Додаємо затримку в пів секунди перед запуском initPreloader
   setTimeout(initPreloader, 500);
   /* -------------------------------------------
-    
+
     page transitions
-    
+
     ------------------------------------------- */
   const options = {
     containers: ["#swupMain", "#swupMenu"],
@@ -60,9 +213,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const swup = new Swup(options);
 
   /* -------------------------------------------
-    
+
     smooth scroll
-    
+
     ------------------------------------------- */
   const lenis = new Lenis({
     duration: 1.2,
@@ -89,9 +242,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* -------------------------------------------
-    
+
     menu
-    
+
     ------------------------------------------- */
   const menuBtn = document.querySelector(".mil-menu-btn");
   const mainMenu = document.querySelector(".mil-main-menu");
@@ -146,9 +299,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /* -------------------------------------------
-    
+
     right buttons
-    
+
     ------------------------------------------- */
   const milRightButtonsFrame = document.querySelector(
     ".mil-right-buttons-frame"
@@ -186,9 +339,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /* -------------------------------------------
-    
+
     sliders
-    
+
     ------------------------------------------- */
   const initSliders = () => {
     const reviewsSliderEl = document.querySelector(".mil-reviews-slider");
@@ -248,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initSliders();
 
   /* -------------------------------------------
-    
+
     scroll animation
 
     ------------------------------------------- */
@@ -408,9 +561,9 @@ document.addEventListener("DOMContentLoaded", function () {
   initScrollAnimations();
 
   /* -------------------------------------------
-    
+
     accordion
-    
+
     ------------------------------------------- */
   const initAccordion = () => {
     const accordions = document.querySelectorAll(".mil-accordion");
@@ -449,9 +602,9 @@ document.addEventListener("DOMContentLoaded", function () {
   initAccordion();
 
   /* -------------------------------------------
-    
+
     popup
-    
+
     ------------------------------------------- */
   let popupClicked = false;
 
@@ -481,7 +634,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }, 20000);
 
   /* -------------------------------------------
-        
+
     forms
 
     ------------------------------------------- */
@@ -492,20 +645,20 @@ document.addEventListener("DOMContentLoaded", function () {
     phoneInputs.forEach(function (phoneInput) {
       var cleave = new Cleave(phoneInput, {
         delimiters: ["(", ")", "-", "-"],
-        blocks: [3, 3, 3, 2, 2],
-        prefix: "+38",
+        blocks: [4, 3, 3, 2, 2],
+        prefix: "+234",
         numericOnly: true,
         noImmediatePrefix: true,
       });
 
       phoneInput.addEventListener("focus", function () {
         if (phoneInput.value === "") {
-          phoneInput.value = "+38";
+          phoneInput.value = "+234";
         }
       });
 
       phoneInput.addEventListener("blur", function () {
-        if (phoneInput.value === "+38" || phoneInput.value === "+38(") {
+        if (phoneInput.value === "+234" || phoneInput.value === "+234(") {
           phoneInput.value = "";
         }
       });
@@ -514,9 +667,9 @@ document.addEventListener("DOMContentLoaded", function () {
   initForms();
 
   /* -------------------------------------------
-            
+
     custom select
-            
+
     ------------------------------------------- */
   const initSelect = () => {
     document.querySelectorAll(".mil-custom-select").forEach((customSelect) => {
@@ -557,9 +710,9 @@ document.addEventListener("DOMContentLoaded", function () {
   initSelect();
 
   /* -------------------------------------------
-                    
+
     before/after
-                    
+
     ------------------------------------------- */
   const initBF = () => {
     var subject = document.querySelector(".mil-before-and-after");
@@ -598,9 +751,9 @@ document.addEventListener("DOMContentLoaded", function () {
   initBF();
 
   /* -------------------------------------------
-                            
+
     fancybox
-                            
+
     ------------------------------------------- */
   const initFancybox = () => {
     const galleryItems = document.querySelectorAll('[data-fancybox="gallery"]');
@@ -676,7 +829,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ScrollTrigger.refresh();
   });
 });
-  
+
 //   window.addEventListener('load', () => {
 //     const preloader = document.querySelector('.mil-preloader-frame');
 //     preloader.style.transition = 'opacity 0.5s ease';
