@@ -20,36 +20,38 @@ document.addEventListener("DOMContentLoaded", function () {
   const WHATSAPP_NUMBER = "+2348131652852";
 
   // Custom Select Functionality
-  const selectButton = document.getElementById('serviceSelect');
-  const dropdown = document.getElementById('serviceDropdown');
-  const selectedValueSpan = selectButton.querySelector('.mil-selected-value');
-  const radioButtons = dropdown.querySelectorAll('input[type="radio"]');
+  const selectButton = document.querySelector('.mil-select-button');
+  const dropdown = document.querySelector('.mil-select-dropdown');
 
-  // Toggle dropdown
-  selectButton.addEventListener('click', function() {
-    dropdown.classList.toggle('show');
-    selectButton.classList.toggle('active');
-  });
+  if (selectButton && dropdown) {
+    const selectedValueSpan = selectButton.querySelector('.mil-selected-value');
+    const radioButtons = dropdown.querySelectorAll('input[type="radio"]');
 
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!selectButton.contains(e.target) && !dropdown.contains(e.target)) {
-      dropdown.classList.remove('show');
-      selectButton.classList.remove('active');
+    if (selectedValueSpan && radioButtons.length > 0) {
+      // Toggle dropdown
+      selectButton.addEventListener('click', function() {
+        dropdown.classList.toggle('show');
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!selectButton.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.remove('show');
+        }
+      });
+
+      // Handle option selection
+      radioButtons.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.checked) {
+            selectedValueSpan.textContent = this.value;
+            dropdown.classList.remove('show');
+          }
+        });
+      });
     }
-  });
+  }
 
-  // Handle option selection
-  radioButtons.forEach(radio => {
-    radio.addEventListener('change', function() {
-      if (this.checked) {
-        selectedValueSpan.textContent = this.value;
-        dropdown.classList.remove('show');
-        selectButton.classList.remove('active');
-        document.getElementById('service-error').style.display = 'none';
-      }
-    });
-  });
 
   // Phone number formatting
   document.getElementById('user-phone').addEventListener('input', function(e) {
